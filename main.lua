@@ -31,7 +31,7 @@ end
 function love.update(dt)
    offset = offset + SPEED*dt
    if offset > (RECT_WIDTH*2) then
-      offset = 0
+      offset = offset - (RECT_WIDTH*2)
    end
 end
 
