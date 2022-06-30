@@ -4,7 +4,8 @@ RECT_WIDTH = 100
 offset = 0
 
 fullscreen = true
-love.window.setMode(1024, 768, {vsync=1, resizable=true})
+vsync = true
+love.window.setMode(1024, 768, {vsync=vsync, resizable=true})
 love.window.setFullscreen(fullscreen)
 
 function love.draw()
@@ -23,9 +24,15 @@ function love.draw()
    end
 
    fps = love.timer.getFPS()
+   if vsync then
+      vsync_state = "on"
+   else
+      vsync_state = "off"
+   end
    love.graphics.setColor(1, 0, 0)
-   love.graphics.print("FPS: " .. tostring(fps), 10, 10, 0, 3, 3)
+   love.graphics.print("FPS: " .. tostring(fps) .. ", vsync " .. vsync_state, 10, 10, 0, 3, 3)
    love.graphics.print("F - toggle fullscreen", 10, 50, 0, 3, 3)
+   love.graphics.print("V - toggle vsync", 10, 90, 0, 3, 3)
 end
 
 function love.update(dt)
@@ -39,5 +46,10 @@ function love.keypressed(key, isrepeat)
    if key == 'f' then
       fullscreen = not fullscreen
       love.window.setFullscreen(fullscreen)
+   end
+
+   if key == 'v' then
+      vsync = not vsync
+      love.window.setVSync(vsync)
    end
 end
